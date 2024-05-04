@@ -479,6 +479,26 @@ def solve_sudoku(trainer, nr_empty):
   return result, nlm_solve_time
 
 
+def is_valid_sudoku(grid):
+    # Check rows
+    for row in grid:
+        if len(set(row)) != 9 or 0 in row:
+            return False
+    
+    # Check columns
+    for col in range(9):
+        if len(set(grid[:, col])) != 9 or 0 in grid[:, col]:
+            return False
+    
+    # Check 3x3 squares
+    for i in range(0, 9, 3):
+        for j in range(0, 9, 3):
+            square = grid[i:i+3, j:j+3]
+            if len(set(square.flatten())) != 9 or 0 in square.flatten():
+                return False
+    
+    return True
+
 if __name__ == '__main__':
   # Comparing the time complexity of NLM model with backtracking algorithm
 
@@ -494,16 +514,33 @@ if __name__ == '__main__':
   if args.load_checkpoint is not None:
     trainer.load_checkpoint(args.load_checkpoint)
 
-  nr_empty = 5
-
-  result, time_nlm = solve_sudoku(trainer, nr_empty)
-  traj = result[2]
-  initial = traj["states"][0]
-  print("Problem Grid:")
-  print(np.where(initial == 0, '_', initial))
-  print()
-  print('Solved Grid using NLM:')
-  print(traj['solved'])
+  nr_empty = 12
+  examples_no = 5
+  suma = 0
+  time_taken = 0
+  steps_no = 0
+  for i in range(examples_no):
+    result, time_nlm = solve_sudoku(trainer, nr_empty)
+    success = result[0]
+    suma += success
+    time_taken += time_nlm
+    steps_no += result[3]
+  print('Success for {} out of {} examples ({:.2%} accuracy)'.format(suma, examples_no, suma/examples_no))
+  print('Average time taken by NLM: {:.2f} sec'.format(time_taken/examples_no))
+  print('Average number of steps: {:.2f}'.format(steps_no/examples_no))
+  # # print(result)
+  # traj = result[2]
+  # initial = traj["states"][0]
+  # print("Problem Grid:")
+  # print(np.where(initial == 0, '_', initial))
+  # print()
+  # print('Solved Grid using NLM:')
+  # print(traj['solved'])
+  # print('Success: {}'.format(result[0]))
+  # print('Score: {}'.format(result[1]))
+  # print('Number of steps: {}'.format(result[3]))
+  # # print('Is solved correctly? {}'.format(is_valid_sudoku(traj['solved'])))
+  # print('Time taken by NLM: {} sec'.format(time_nlm))
 
 
   # Uncomment below code to create plot for comparing NLM model with traditional backtracking algorithm.
