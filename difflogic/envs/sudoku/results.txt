@@ -1,0 +1,68 @@
+Model trained for 50 epochs
+
+81 max number of steps
+Number of empty cells: 3
+Success for 87 out of 100 examples (87.00% accuracy)
+Average time taken by NLM: 0.24 sec
+Average number of steps: 42.89
+
+Number of empty cells: 5
+Success for 46 out of 100 examples (46.00% accuracy)
+Average time taken by NLM: 0.40 sec
+Average number of steps: 69.93
+
+Number of empty cells: 8
+Success for 4 out of 100 examples (4.00% accuracy)
+Average time taken by NLM: 0.46 sec
+Average number of steps: 80.76
+
+
+150 max number of steps
+Number of empty cells: 3
+Success for 96 out of 100 examples (96.00% accuracy)
+Average time taken by NLM: 0.28 sec
+Average number of steps: 52.50
+
+Number of empty cells: 5
+Success for 85 out of 100 examples (85.00% accuracy)
+Average time taken by NLM: 0.67 sec
+Average number of steps: 92.12
+
+Number of empty cells: 8
+Success for 32 out of 100 examples (32.00% accuracy)
+Average time taken by NLM: 0.96 sec
+Average number of steps: 140.27
+
+
+400 max number of steps
+Number of empty cells: 3
+Success for 100 out of 100 examples (100.00% accuracy)
+Average time taken by NLM: 0.29 sec
+Average number of steps: 55.01
+
+Number of empty cells: 5
+Success for 100 out of 100 examples (100.00% accuracy)
+Average time taken by NLM: 0.58 sec
+Average number of steps: 107.94
+
+Number of empty cells: 8
+Success for 99 out of 100 examples (99.00% accuracy)
+Average time taken by NLM: 1.43 sec
+Average number of steps: 198.52
+
+
+729 max number of steps
+Number of empty cells: 3
+Success for 100 out of 100 examples (100.00% accuracy)
+Average time taken by NLM: 0.23 sec
+Average number of steps: 49.17
+
+Number of empty cells: 5
+Success for 100 out of 100 examples (100.00% accuracy)
+Average time taken by NLM: 0.81 sec
+Average number of steps: 105.07
+
+Number of empty cells: 8
+Success for 100 out of 100 examples (100.00% accuracy)
+Average time taken by NLM: 1.40 sec
+Average number of steps: 206.77

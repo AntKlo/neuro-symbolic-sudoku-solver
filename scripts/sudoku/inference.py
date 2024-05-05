@@ -7,6 +7,8 @@ import json
 import os
 import time
 
+from tqdm import tqdm
+
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
@@ -514,20 +516,22 @@ if __name__ == '__main__':
   if args.load_checkpoint is not None:
     trainer.load_checkpoint(args.load_checkpoint)
 
-  nr_empty = 12
-  examples_no = 5
-  suma = 0
-  time_taken = 0
-  steps_no = 0
-  for i in range(examples_no):
-    result, time_nlm = solve_sudoku(trainer, nr_empty)
-    success = result[0]
-    suma += success
-    time_taken += time_nlm
-    steps_no += result[3]
-  print('Success for {} out of {} examples ({:.2%} accuracy)'.format(suma, examples_no, suma/examples_no))
-  print('Average time taken by NLM: {:.2f} sec'.format(time_taken/examples_no))
-  print('Average number of steps: {:.2f}'.format(steps_no/examples_no))
+  nr_emptys = [3, 5, 8]
+  examples_no = 100
+  for nr_empty in nr_emptys:
+    print('Number of empty cells: {}'.format(nr_empty))
+    suma = 0
+    time_taken = 0
+    steps_no = 0
+    for i in tqdm(range(examples_no)):
+      result, time_nlm = solve_sudoku(trainer, nr_empty)
+      success = result[0]
+      suma += success
+      time_taken += time_nlm
+      steps_no += result[3]
+    print('Success for {} out of {} examples ({:.2%} accuracy)'.format(suma, examples_no, suma/examples_no))
+    print('Average time taken by NLM: {:.2f} sec'.format(time_taken/examples_no))
+    print('Average number of steps: {:.2f}'.format(steps_no/examples_no))
   # # print(result)
   # traj = result[2]
   # initial = traj["states"][0]
