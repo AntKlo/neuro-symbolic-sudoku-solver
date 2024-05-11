@@ -501,6 +501,12 @@ def is_valid_sudoku(grid):
     
     return True
 
+
+def save_results_to_csv(filename, nr_empty, accuracy, avg_time, avg_steps):
+  with open(filename, 'a') as f:
+    f.write('{}, {}, {}, {}\n'.format(nr_empty, accuracy, avg_time, avg_steps))
+
+
 if __name__ == '__main__':
   # Comparing the time complexity of NLM model with backtracking algorithm
 
@@ -516,7 +522,9 @@ if __name__ == '__main__':
   if args.load_checkpoint is not None:
     trainer.load_checkpoint(args.load_checkpoint)
 
-  nr_emptys = [3, 5, 8]
+  max_steps = 729
+  filename = 'results_max_steps_{}.csv'.format(max_steps)
+  nr_emptys = range(1, 21)
   examples_no = 100
   for nr_empty in nr_emptys:
     print('Number of empty cells: {}'.format(nr_empty))
@@ -529,9 +537,14 @@ if __name__ == '__main__':
       suma += success
       time_taken += time_nlm
       steps_no += result[3]
-    print('Success for {} out of {} examples ({:.2%} accuracy)'.format(suma, examples_no, suma/examples_no))
-    print('Average time taken by NLM: {:.2f} sec'.format(time_taken/examples_no))
-    print('Average number of steps: {:.2f}'.format(steps_no/examples_no))
+    acc = suma/examples_no
+    avg_time = time_taken/examples_no
+    avg_steps = steps_no/examples_no
+    print('Success for {} out of {} examples ({:.2%} accuracy)'.format(suma, examples_no, acc))
+    print('Average time taken by NLM: {:.2f} sec'.format(avg_time))
+    print('Average number of steps: {:.2f}'.format(avg_steps))
+    print()
+    save_results_to_csv(filename, nr_empty, acc, avg_time, avg_steps)
   # # print(result)
   # traj = result[2]
   # initial = traj["states"][0]
